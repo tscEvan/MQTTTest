@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,6 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
 
     ArrayList<PhotoBean> photoArrayList = new ArrayList<>();
 
-
     public MQTTAdapter(Context context, ArrayList<MQTTBean> arrayList, String myClientId) {
         this.context = context;
         this.arrayList = arrayList;
@@ -48,6 +48,7 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MQTTHolder mqttHolder, int i) {
+        Log.d("TAG", "onBindViewHolder: "+i);
         switch (arrayList.get(i).type) {
             case MainActivity.TEXT:
                 mqttHolder.txMessage.setText(arrayList.get(i).getMessage());
@@ -60,8 +61,9 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(decodeByte,0,decodeByte.length);
                 mqttHolder.messageImg.setImageBitmap(bitmap);
                 mqttHolder.messageImg.setOnClickListener(showImage);
-//                mqttHolder.messageImg.isClickable();
                 int photoArrayListItemNum = photoArrayList.size();
+                mqttHolder.messageImg.setTag(photoArrayListItemNum);
+                Log.d("TAG", "onBindViewHolderPHOTO: "+photoArrayListItemNum);
                 photoArrayList.add(new PhotoBean(decodeByte,arrayList.get(i).getId(), photoArrayListItemNum));
                 break;
         }
@@ -99,10 +101,10 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
         @Override
         public void onClick(View v) {
             Intent photoPage = new Intent(context, PhotoActivity.class);
-//            ArrayList<PhotoBean> p= new ArrayList<>();
-//            p.add(new PhotoBean(null,photoArrayList.get(0).getId()));
             photoPage.putExtra("PHOTO_ARRAY_LIST", photoArrayList);
-//            photoPage.putExtra("PHOTO_SCREEN_ITEM_NUM", photoArrayListItemNum);
+            int item = (int) v.getTag();
+            Log.d("TAG", "onClick: "+ item);
+            photoPage.putExtra("PHOTO_SCREEN_ITEM_NUM", item);
             context.startActivity(photoPage);
         }
     };

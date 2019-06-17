@@ -20,16 +20,16 @@ public class PhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
-            android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-            actionBar.hide();
-//        ArrayList<String> dataArray = getIntent().getStringArrayListExtra("PHOTO_ARRAY_LIST");
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         Serializable serializable = getIntent().getSerializableExtra("PHOTO_ARRAY_LIST");
         int itemNum = getIntent().getIntExtra("PHOTO_SCREEN_ITEM_NUM",0);
         ArrayList<PhotoBean> photo = (ArrayList<PhotoBean>) serializable;
+
         RecyclerView recyclerView = findViewById(R.id.recyclerPhoto);
         PhotoFunction photoFunction = new PhotoFunction(this, recyclerView, photo, itemNum);
-        for (PhotoBean data: photo){
-            Log.d(TAG, "onCreate: "+data.getId());
-        }
+
     }
 }

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        String myClientId = "NCKU3";
+        String myClientId = "NCKU1";
         MQTTFunction mqttFunction = new MQTTFunction(this, recyclerView, myClientId);
         mqtt = new MqttHelper(mqttFunction, "NCKU_TOPIC", myClientId, recyclerView);
         mqtt.startSubscribe();

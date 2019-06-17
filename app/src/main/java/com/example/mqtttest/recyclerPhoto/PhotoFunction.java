@@ -24,6 +24,7 @@ public class PhotoFunction {
         recyclerView.setLayoutManager(linearLayoutManager);
         PhotoAdapter adapter = new PhotoAdapter(context,arrayList);
         linearLayoutManager.scrollToPosition(item);
+        linearLayoutManager.setReverseLayout(true);
         recyclerView.setAdapter(adapter);
     }
 
