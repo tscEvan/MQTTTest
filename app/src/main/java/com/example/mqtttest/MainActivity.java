@@ -49,11 +49,12 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        String myClientId = "NCKU1";
+        String myClientId = "Bob";
         MQTTFunction mqttFunction = new MQTTFunction(this, recyclerView, myClientId);
         mqtt = new MqttHelper(mqttFunction, "NCKU_TOPIC", myClientId, recyclerView);
         mqtt.startSubscribe();
         editText = findViewById(R.id.editText);
+
     }
 
     public void buttonPublisher(View view) {

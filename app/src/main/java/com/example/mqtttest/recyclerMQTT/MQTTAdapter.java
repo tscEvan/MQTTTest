@@ -1,10 +1,8 @@
 package com.example.mqtttest.recyclerMQTT;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -18,11 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mqtttest.MainActivity;
-import com.example.mqtttest.PhotoActivity;
 import com.example.mqtttest.R;
 import com.example.mqtttest.recyclerPhoto.PhotoBean;
+import com.example.mqtttest.recyclerPhoto.PhotoDialog;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
@@ -30,13 +27,15 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
     Context context;
     ArrayList<MQTTBean> arrayList;
     String myClientId;
+    RecyclerView recyclerView;
 
     ArrayList<PhotoBean> photoArrayList = new ArrayList<>();
 
-    public MQTTAdapter(Context context, ArrayList<MQTTBean> arrayList, String myClientId) {
+    public MQTTAdapter(Context context, ArrayList<MQTTBean> arrayList, String myClientId, RecyclerView recyclerView) {
         this.context = context;
         this.arrayList = arrayList;
         this.myClientId = myClientId;
+        this.recyclerView = recyclerView;
     }
 
     @NonNull
@@ -100,12 +99,21 @@ public class MQTTAdapter extends RecyclerView.Adapter<MQTTAdapter.MQTTHolder> {
     View.OnClickListener showImage = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent photoPage = new Intent(context, PhotoActivity.class);
-            photoPage.putExtra("PHOTO_ARRAY_LIST", photoArrayList);
-            int item = (int) v.getTag();
-            Log.d("TAG", "onClick: "+ item);
-            photoPage.putExtra("PHOTO_SCREEN_ITEM_NUM", item);
-            context.startActivity(photoPage);
+//            Intent photoPage = new Intent(context, PhotoActivity.class);
+//            int item = (int) v.getTag();
+//            photoPage.putExtra("PHOTO_SCREEN_ITEM_NUM", item);
+//            photoPage.putExtra("PHOTO_ARRAY_LIST", photoArrayList);
+//            context.startActivity(photoPage);
+//            android.support.v7.app.ActionBar actionBar = context.getSupportActionBar();
+//            actionBar.hide();
+
+//            int itemNum = getIntent().getIntExtra("PHOTO_SCREEN_ITEM_NUM",0);
+//            ArrayList<PhotoBean> photo = (ArrayList<PhotoBean>) getIntent().getSerializableExtra("PHOTO_ARRAY_LIST");
+
+//            RecyclerView recyclerView = findViewById(R.id.recyclerPhoto);
+
+//            new PhotoFunction(context, recyclerView, photoArrayList, (int) v.getTag());
+                new PhotoDialog(context,R.style.PhotoDialog,photoArrayList,(int) v.getTag()).show();
         }
     };
 }
