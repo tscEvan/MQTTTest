@@ -37,6 +37,7 @@ public class MQTTFunction {
         }
         arrayList.add(data);
         layoutManager.scrollToPosition(arrayList.size()-1);
+
         recyclerView.setAdapter(new MQTTAdapter(context,arrayList,myClientId,recyclerView));
     }
 }

@@ -2,6 +2,7 @@ package com.example.mqtttest.mqtt;
 
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttHelper {
     private final String TAG = MqttHelper.class.getSimpleName();
-    private View errorView;
+    private RecyclerView recyclerView;
     MQTTFunction mqttFunction;
 
     private static MqttConnectOptions options;
@@ -67,21 +68,20 @@ public class MqttHelper {
         }
     }
 
-    public MqttHelper(MQTTFunction mqttFunction, String myTopic, String myClientId, View errorView){
-        this.errorView = errorView;
+    public MqttHelper(MQTTFunction mqttFunction, String myTopic, String myClientId, RecyclerView recyclerView){
+        this.mqttFunction = mqttFunction;
         this.myTopic = myTopic;
         this.myClientId = myClientId;
-        this.errorView = errorView;
-        this.mqttFunction = mqttFunction;
+        this.recyclerView = recyclerView;
         // connect MQTT Server
         connectMQTTServer();
     }
 
-    public MqttHelper(String mqttHost, String myTopic, MQTTFunction mqttFunction, String myClientId, View errorView){
+    public MqttHelper(String mqttHost, String myTopic, MQTTFunction mqttFunction, String myClientId, RecyclerView recyclerView){
         this.mqttHost = "tcp://"+mqttHost;
         this.myTopic = myTopic;
         this.myClientId = myClientId;
-        this.errorView = errorView;
+        this.recyclerView = recyclerView;
         this.mqttFunction = mqttFunction;
         // connect MQTT Server
         connectMQTTServer();
@@ -98,7 +98,7 @@ public class MqttHelper {
             client.setCallback(new MqttCallback() {
                 @Override
                 public void connectionLost(Throwable cause) {
-                    Snackbar.make(errorView,cause.getMessage(),Snackbar.LENGTH_LONG).setAction("Action",null).show();
+                    Snackbar.make(recyclerView,cause.getMessage(),Snackbar.LENGTH_LONG).setAction("Action",null).show();
                     Log.d(TAG, "connectionLost: " + cause.getMessage());
                 }
                 @Override
@@ -118,12 +118,12 @@ public class MqttHelper {
                 }
             });
             client.connect(options);
-            Snackbar.make(errorView,"Connect MQTT Server OK", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(recyclerView,"Connect MQTT Server OK", Snackbar.LENGTH_SHORT).show();
             startSubscribe();
         } catch (MqttException e) {
             e.printStackTrace();
             Log.d(TAG, "MqttHelper: "+e.getMessage());
-            Snackbar.make(errorView,e.getMessage(),Snackbar.LENGTH_INDEFINITE).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
+            Snackbar.make(recyclerView,e.getMessage(),Snackbar.LENGTH_INDEFINITE).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     connectMQTTServer();
@@ -137,10 +137,10 @@ public class MqttHelper {
             int[] Qos = {0};
             String[] topic1 = {myTopic};
             client.subscribe(topic1, Qos);
-            Snackbar.make(errorView,"Start subscribe to " + myTopic ,Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(recyclerView,"Start subscribe to " + myTopic ,Snackbar.LENGTH_SHORT).show();
         } catch (MqttException e) {
             e.printStackTrace();
-            Snackbar.make(errorView,e.getMessage(),Snackbar.LENGTH_INDEFINITE).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
+            Snackbar.make(recyclerView,e.getMessage(),Snackbar.LENGTH_INDEFINITE).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     connectMQTTServer();
@@ -167,7 +167,7 @@ public class MqttHelper {
             client.publish(myTopic, mqttMessage);
         } catch (MqttException e) {
             e.printStackTrace();
-            Snackbar.make(errorView,"fail up ("+e.getMessage()+")",Snackbar.LENGTH_LONG).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
+            Snackbar.make(recyclerView,"fail up ("+e.getMessage()+")",Snackbar.LENGTH_LONG).setAction(R.string.click_to_reconnect, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     connectMQTTServer();

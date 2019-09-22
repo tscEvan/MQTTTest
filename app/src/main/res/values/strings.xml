@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MQTTTest</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="lab_eat">Lab Eat</string>
     <string name="click_to_reconnect">Click to ReConnect</string>
 </resources>

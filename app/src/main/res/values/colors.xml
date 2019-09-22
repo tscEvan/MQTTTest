@@ -3,5 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="black">#000</color>
+    <color name="black">#000000</color>
+    <color name="light_green">#A3F575</color>
+    <color name="light_yellow">#FFF9C4</color>
+    <color name="little_light_yellow">#FFECB3</color>
+    <color name="light_red">#FFCDD2</color>
+    <color name="little_light_red">#F8BBD0</color>
+    <color name="light_blue">#BBDEFB</color>
+    <color name="little_light_blue">#B3E5FC</color>
+
 </resources>

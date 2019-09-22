@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C5E0B4"
+    tools:context=".LabEatActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_bt_add_Store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#0091EA"
+        android:clickable="true"
+        android:tint="#FFFFFF"
+        app:backgroundTint="#00B8D4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:maxImageSize="50sp"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lab_eat_logo" />
+
+    <ImageButton
+        android:id="@+id/img_bt_breakfast"
+        android:layout_width="0dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/color_img_bt_yellow"
+        android:onClick="breakfast"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:srcCompat="@drawable/lab_eat_breakfast" />
+
+    <ImageButton
+        android:id="@+id/img_bt_lunch"
+        android:layout_width="0dp"
+        android:layout_height="50sp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/color_img_bt_red"
+        android:onClick="lunch"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="@+id/img_bt_breakfast"
+        app:layout_constraintStart_toStartOf="@+id/img_bt_breakfast"
+        app:layout_constraintTop_toBottomOf="@+id/img_bt_breakfast"
+        app:srcCompat="@drawable/lab_eat_lunch" />
+
+    <ImageButton
+        android:id="@+id/img_bt_dinner"
+        android:layout_width="0dp"
+        android:layout_height="50sp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/color_img_bt_blue"
+        android:onClick="dinner"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="@+id/img_bt_lunch"
+        app:layout_constraintStart_toStartOf="@+id/img_bt_lunch"
+        app:layout_constraintTop_toBottomOf="@+id/img_bt_lunch"
+        app:srcCompat="@drawable/lab_eat_dinner" />
+
+</android.support.constraint.ConstraintLayout>

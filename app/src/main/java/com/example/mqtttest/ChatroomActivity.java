@@ -6,19 +6,16 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.mqtttest.mqtt.MqttHelper;
 import com.example.mqtttest.mqtt.MqttHelperFunction;
@@ -27,52 +24,49 @@ import com.example.mqtttest.recyclerMQTT.MQTTFunction;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.mqtttest.MainActivity.INTENT_GET_IMAGE;
+import static com.example.mqtttest.MainActivity.PHOTO;
+import static com.example.mqtttest.MainActivity.TEXT;
 
-    public static final int ERRROR = -1;
-    public static final int TEXT = 1;
-    public static final int PHOTO = 2;
-    public static final int INTENT_GET_IMAGE = 90;
-    public static String myClientId;
-    private static final String TAG = MainActivity.class.getSimpleName();
-//    private MqttHelper mqtt;
-    private EditText editText;
-//    private MQTTFunction mqttFunction;
+public class ChatroomActivity extends AppCompatActivity {
+
+    private static final String TAG = ChatroomActivity.class.getSimpleName();
     private RecyclerView recyclerView;
+    private EditText editText;
     private SharedPreferences sharedPreferences;
+    private String myClientId;
     private String topic;
     private MqttHelperFunction mqttHelperFunction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setContentView(R.layout.activity_chatroom);
         recyclerView = findViewById(R.id.recyclerView);
+        editText = findViewById(R.id.editText);
 
         sharedPreferences = getSharedPreferences("Account", MODE_PRIVATE);
-        myClientId = sharedPreferences.getString("ACCOUNT_NAME", "");
+//        myClientId = "Evan";
+        myClientId = MainActivity.myClientId;
         if (myClientId.isEmpty()) {
-            Intent loginPage = new Intent(this, LoginActivity.class);
+            Intent loginPage = new Intent(this,LoginActivity.class);
             startActivity(loginPage);
             this.finish();
         } else {
-            topic = "NCKU_TOPIC_ADMIN";
-//            TODO: the function open in the funture
-//            mqttHelperFunction = new MqttHelperFunction(this,myClientId, topic,recyclerView);
+            topic = "NCKU_TOPIC";
+            mqttHelperFunction = new MqttHelperFunction(this,myClientId, topic,recyclerView);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        TODO: the function open in the funture
-//        mqttHelperFunction.startSubscribe();
-//        mqttHelperFunction.buttonPublisher("MY_MEMBER");
-        startActivity(new Intent(this,ChatroomActivity.class));
-        this.finish();
+        mqttHelperFunction.startSubscribe();
+    }
+
+    public void buttonPublisher(View view) {
+        mqttHelperFunction.buttonPublisher(editText.getText().toString());
+        editText.setText("");
     }
 
     public void imgPublisher(View view) {
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-            break;
+                break;
         }
     }
 
@@ -127,7 +121,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id){
             case R.id.action_settings:
-
+                mqttHelperFunction.startSubscribe();
+                return true;
+            case R.id.action_lab_ead:
+                startActivity(new Intent(this,LabEatActivity.class));
                 return true;
             case R.id.action_logout:
                 boolean clear_account_name = sharedPreferences.edit().putString("ACCOUNT_NAME", "").commit();
