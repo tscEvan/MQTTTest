@@ -80,6 +80,7 @@
         app:layout_constraintEnd_toEndOf="@+id/img_bt_lunch"
         app:layout_constraintStart_toStartOf="@+id/img_bt_lunch"
         app:layout_constraintTop_toBottomOf="@+id/img_bt_lunch"
-        app:srcCompat="@drawable/lab_eat_dinner" />
+        app:srcCompat="@drawable/lab_eat_dinner"/>
+
 
 </android.support.constraint.ConstraintLayout>
