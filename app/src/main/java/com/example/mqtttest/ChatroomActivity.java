@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,8 @@ import android.widget.EditText;
 import com.example.mqtttest.mqtt.MqttHelper;
 import com.example.mqtttest.mqtt.MqttHelperFunction;
 import com.example.mqtttest.recyclerMQTT.MQTTFunction;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
